@@ -1,5 +1,5 @@
 PREFIX := /usr/local
-VERSION := 0.2
+VERSION := 0.30
 TAG := $(shell git describe --exact-match --tags 2>/dev/null)
 COMMIT := $(shell git rev-parse --short HEAD)
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
@@ -38,6 +38,9 @@ package:
 package-all:
 	$(MAKE) deps
 	./pkg/build.sh $(VERSION) -all
+
+docker-build:
+	./pkg/docker-build.sh $(VERSION)
 
 go-install:
 	go install -ldflags "-w -s $(LDFLAGS)" ./cmd/wavefront-proxy
